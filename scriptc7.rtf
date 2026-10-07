@@ -1,0 +1,95 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red77\green80\blue85;\red246\green247\blue249;\red46\green49\blue51;
+\red20\green67\blue174;\red186\green6\blue115;\red162\green0\blue16;\red0\green0\blue0;\red18\green115\blue126;
+}
+{\*\expandedcolortbl;;\cssrgb\c37255\c38824\c40784;\cssrgb\c97255\c97647\c98039;\cssrgb\c23529\c25098\c26275;
+\cssrgb\c9412\c35294\c73725;\cssrgb\c78824\c15294\c52549;\cssrgb\c70196\c7843\c7059;\cssrgb\c0\c0\c0;\cssrgb\c3529\c52157\c56863;
+}
+\margl1440\margr1440\vieww28600\viewh18000\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 // Nombres de las columnas, texto libre a editar\cf4 \cb1 \strokec4 \
+\cf5 \cb3 \strokec5 var\cf4 \strokec4  \cf6 \strokec6 ENCABEZADOS\cf4 \strokec4  = [\cf7 \strokec7 "ID"\cf4 \strokec4 , \cf7 \strokec7 "Fecha y Hora"\cf4 \strokec4 , \cf7 \strokec7 "Nombre"\cf4 \strokec4 , \cf7 \strokec7 "Edad"\cf4 \strokec4 , \cf7 \strokec7 "Cargo"\cf4 \strokec4 ,\cf7 \strokec7 "nacionalidad"\cf4 \strokec4 , \cf7 \strokec7 "salario"\cf4 \strokec4  ]; \cf2 \strokec2 // Nombres de las columnas\cf4 \cb1 \strokec4 \
+\
+\cf5 \cb3 \strokec5 function\cf4 \strokec4  \strokec8 obtenerHoja\strokec4 () \{\cb1 \
+\cb3   \cf5 \strokec5 var\cf4 \strokec4  \strokec8 hoja\strokec4  = \cf6 \strokec6 SpreadsheetApp\cf4 \strokec4 .\strokec8 getActiveSpreadsheet\strokec4 ().\strokec8 getActiveSheet\strokec4 ();\cb1 \
+\cb3   \cf5 \strokec5 if\cf4 \strokec4  (\strokec8 hoja\strokec4 .\strokec8 getLastRow\strokec4 () === \cf9 \strokec9 0\cf4 \strokec4 ) \{\cb1 \
+\cb3     \strokec8 hoja\strokec4 .\strokec8 appendRow\strokec4 (\cf6 \strokec6 ENCABEZADOS\cf4 \strokec4 );\cb1 \
+\cb3   \}\cb1 \
+\cb3   \cf5 \strokec5 return\cf4 \strokec4  \strokec8 hoja\strokec4 ;\cb1 \
+\cb3 \}\cb1 \
+\
+\cf5 \cb3 \strokec5 function\cf4 \strokec4  \strokec8 responder\strokec4 (\strokec8 objeto\strokec4 ) \{\cb1 \
+\cb3   \cf5 \strokec5 return\cf4 \strokec4  \cf6 \strokec6 ContentService\cf4 \cb1 \strokec4 \
+\cb3     .\strokec8 createTextOutput\strokec4 (\cf6 \strokec6 JSON\cf4 \strokec4 .\strokec8 stringify\strokec4 (\strokec8 objeto\strokec4 ))\cb1 \
+\cb3     .\strokec8 setMimeType\strokec4 (\cf6 \strokec6 ContentService\cf4 \strokec4 .\cf6 \strokec6 MimeType\cf4 \strokec4 .\cf6 \strokec6 JSON\cf4 \strokec4 );\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 \strokec2 // CONSULTAR: devuelve todos los registros\cf4 \cb1 \strokec4 \
+\cf5 \cb3 \strokec5 function\cf4 \strokec4  \strokec8 doGet\strokec4 () \{\cb1 \
+\cb3   \cf5 \strokec5 var\cf4 \strokec4  \strokec8 datos\strokec4  = \strokec8 obtenerHoja\strokec4 ().\strokec8 getDataRange\strokec4 ().\strokec8 getValues\strokec4 ();\cb1 \
+\cb3   \strokec8 datos\strokec4 .\strokec8 shift\strokec4 (); \cf2 \strokec2 // quita los encabezados\cf4 \cb1 \strokec4 \
+\
+\cf2 \cb3 \strokec2 // agregar la fila segun su orden de variables\cf4 \cb1 \strokec4 \
+\cb3   \cf5 \strokec5 var\cf4 \strokec4  \strokec8 registros\strokec4  = \strokec8 datos\strokec4 .\strokec8 map\strokec4 (\cf5 \strokec5 function\cf4 \strokec4  (\strokec8 fila\strokec4 ) \{\cb1 \
+\cb3     \cf5 \strokec5 return\cf4 \strokec4  \{ \strokec8 id\strokec4 : \strokec8 fila\strokec4 [\cf9 \strokec9 0\cf4 \strokec4 ], \strokec8 fecha\strokec4 : \strokec8 fila\strokec4 [\cf9 \strokec9 1\cf4 \strokec4 ], \strokec8 nombre\strokec4 : \strokec8 fila\strokec4 [\cf9 \strokec9 2\cf4 \strokec4 ], \strokec8 edad\strokec4 : \strokec8 fila\strokec4 [\cf9 \strokec9 3\cf4 \strokec4 ], \strokec8 cargo\strokec4 : \strokec8 fila\strokec4 [\cf9 \strokec9 4\cf4 \strokec4 ], \strokec8 nacionalidad\strokec4 : \strokec8 fila\strokec4 [\cf9 \strokec9 5\cf4 \strokec4 ], \strokec8 salario\strokec4 : \strokec8 fila\strokec4 [\cf9 \strokec9 6\cf4 \strokec4 ]\};\cb1 \
+\cb3   \});\cb1 \
+\
+\cb3   \cf5 \strokec5 return\cf4 \strokec4  \strokec8 responder\strokec4 (\strokec8 registros\strokec4 );\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 \strokec2 // GUARDAR, EDITAR o ELIMINAR\cf4 \cb1 \strokec4 \
+\cf5 \cb3 \strokec5 function\cf4 \strokec4  \strokec8 doPost\strokec4 (\strokec8 e\strokec4 ) \{\cb1 \
+\cb3   \cf5 \strokec5 var\cf4 \strokec4  \strokec8 lock\strokec4  = \cf6 \strokec6 LockService\cf4 \strokec4 .\strokec8 getScriptLock\strokec4 ();\cb1 \
+\cb3   \strokec8 lock\strokec4 .\strokec8 tryLock\strokec4 (\cf9 \strokec9 30000\cf4 \strokec4 );\cb1 \
+\
+\cb3   \cf5 \strokec5 try\cf4 \strokec4  \{\cb1 \
+\cb3     \cf5 \strokec5 var\cf4 \strokec4  \strokec8 p\strokec4  = \strokec8 e\strokec4 .\strokec8 parameter\strokec4 ;\cb1 \
+\cb3     \cf5 \strokec5 var\cf4 \strokec4  \strokec8 hoja\strokec4  = \strokec8 obtenerHoja\strokec4 ();\cb1 \
+\
+\cb3     \cf5 \strokec5 if\cf4 \strokec4  (\strokec8 p\strokec4 .\strokec8 accion\strokec4  === \cf7 \strokec7 "guardar"\cf4 \strokec4 ) \{\cb1 \
+\
+\cb3       \cf2 \strokec2 // AGREGAR VARIABLE SEGUN SU ORDEN\cf4 \cb1 \strokec4 \
+\cb3       \strokec8 hoja\strokec4 .\strokec8 appendRow\strokec4 ([\cf6 \strokec6 Date\cf4 \strokec4 .\strokec8 now\strokec4 (), \cf5 \strokec5 new\cf4 \strokec4  \cf6 \strokec6 Date\cf4 \strokec4 (), \strokec8 p\strokec4 .\strokec8 nombre\strokec4 , \strokec8 p\strokec4 .\strokec8 edad\strokec4 , \strokec8 p\strokec4 .\strokec8 cargo\strokec4 , \strokec8 p\strokec4 .\strokec8 nacionalidad\strokec4 , \strokec8 p\strokec4 .\strokec8 salario\strokec4 ]);\cb1 \
+\cb3       \cf5 \strokec5 return\cf4 \strokec4  \strokec8 responder\strokec4 (\{ \strokec8 ok\strokec4 : \cf5 \strokec5 true\cf4 \strokec4  \});\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf5 \strokec5 var\cf4 \strokec4  \strokec8 fila\strokec4  = \strokec8 buscarFila\strokec4 (\strokec8 hoja\strokec4 , \strokec8 p\strokec4 .\strokec8 id\strokec4 );\cb1 \
+\cb3     \cf5 \strokec5 if\cf4 \strokec4  (\strokec8 fila\strokec4  === -\cf9 \strokec9 1\cf4 \strokec4 ) \{\cb1 \
+\cb3       \cf5 \strokec5 return\cf4 \strokec4  \strokec8 responder\strokec4 (\{ \strokec8 ok\strokec4 : \cf5 \strokec5 false\cf4 \strokec4 , \strokec8 mensaje\strokec4 : \cf7 \strokec7 "No se encontr\'f3 el registro"\cf4 \strokec4  \});\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf5 \strokec5 if\cf4 \strokec4  (\strokec8 p\strokec4 .\strokec8 accion\strokec4  === \cf7 \strokec7 "editar"\cf4 \strokec4 ) \{\cb1 \
+\cb3       \cf2 \strokec2 // AGREGAR VARIABLE SEGUN SU ORDEN\cf4 \cb1 \strokec4 \
+\cb3       \strokec8 hoja\strokec4 .\strokec8 getRange\strokec4 (\strokec8 fila\strokec4 , \cf9 \strokec9 3\cf4 \strokec4 , \cf9 \strokec9 1\cf4 \strokec4 , \cf9 \strokec9 2\cf4 \strokec4 ).\strokec8 setValues\strokec4 ([[\strokec8 p\strokec4 .\strokec8 nombre\strokec4 , \strokec8 p\strokec4 .\strokec8 edad\strokec4 , \strokec8 p\strokec4 .\strokec8 cargo\strokec4 , \strokec8 p\strokec4 .\strokec8 nacionalidad\strokec4 , \strokec8 p\strokec4 .\strokec8 salario\strokec4 ]]);\cb1 \
+\cb3       \cf5 \strokec5 return\cf4 \strokec4  \strokec8 responder\strokec4 (\{ \strokec8 ok\strokec4 : \cf5 \strokec5 true\cf4 \strokec4  \});\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf5 \strokec5 if\cf4 \strokec4  (\strokec8 p\strokec4 .\strokec8 accion\strokec4  === \cf7 \strokec7 "eliminar"\cf4 \strokec4 ) \{\cb1 \
+\cb3       \strokec8 hoja\strokec4 .\strokec8 deleteRow\strokec4 (\strokec8 fila\strokec4 );\cb1 \
+\cb3       \cf5 \strokec5 return\cf4 \strokec4  \strokec8 responder\strokec4 (\{ \strokec8 ok\strokec4 : \cf5 \strokec5 true\cf4 \strokec4  \});\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf5 \strokec5 return\cf4 \strokec4  \strokec8 responder\strokec4 (\{ \strokec8 ok\strokec4 : \cf5 \strokec5 false\cf4 \strokec4 , \strokec8 mensaje\strokec4 : \cf7 \strokec7 "Acci\'f3n no v\'e1lida"\cf4 \strokec4  \});\cb1 \
+\
+\cb3   \} \cf5 \strokec5 catch\cf4 \strokec4  (\strokec8 error\strokec4 ) \{\cb1 \
+\cb3     \cf5 \strokec5 return\cf4 \strokec4  \strokec8 responder\strokec4 (\{ \strokec8 ok\strokec4 : \cf5 \strokec5 false\cf4 \strokec4 , \strokec8 mensaje\strokec4 : \strokec8 error\strokec4 .\strokec8 toString\strokec4 () \});\cb1 \
+\cb3   \} \cf5 \strokec5 finally\cf4 \strokec4  \{\cb1 \
+\cb3     \strokec8 lock\strokec4 .\strokec8 releaseLock\strokec4 ();\cb1 \
+\cb3   \}\cb1 \
+\cb3 \}\cb1 \
+\
+\cf2 \cb3 \strokec2 // Busca el n\'famero de fila que tiene ese ID (-1 si no existe)\cf4 \cb1 \strokec4 \
+\cf5 \cb3 \strokec5 function\cf4 \strokec4  \strokec8 buscarFila\strokec4 (\strokec8 hoja\strokec4 , \strokec8 id\strokec4 ) \{\cb1 \
+\cb3   \cf5 \strokec5 var\cf4 \strokec4  \strokec8 ids\strokec4  = \strokec8 hoja\strokec4 .\strokec8 getRange\strokec4 (\cf9 \strokec9 1\cf4 \strokec4 , \cf9 \strokec9 1\cf4 \strokec4 , \strokec8 hoja\strokec4 .\strokec8 getLastRow\strokec4 (), \cf9 \strokec9 1\cf4 \strokec4 ).\strokec8 getValues\strokec4 ();\cb1 \
+\cb3   \cf5 \strokec5 for\cf4 \strokec4  (\cf5 \strokec5 var\cf4 \strokec4  \strokec8 i\strokec4  = \cf9 \strokec9 1\cf4 \strokec4 ; \strokec8 i\strokec4  < \strokec8 ids\strokec4 .\strokec8 length\strokec4 ; \strokec8 i\strokec4 ++) \{\cb1 \
+\cb3     \cf5 \strokec5 if\cf4 \strokec4  (\cf6 \strokec6 String\cf4 \strokec4 (\strokec8 ids\strokec4 [\strokec8 i\strokec4 ][\cf9 \strokec9 0\cf4 \strokec4 ]) === \cf6 \strokec6 String\cf4 \strokec4 (\strokec8 id\strokec4 )) \{\cb1 \
+\cb3       \cf5 \strokec5 return\cf4 \strokec4  \strokec8 i\strokec4  + \cf9 \strokec9 1\cf4 \strokec4 ; \cf2 \strokec2 // +1 porque las filas empiezan en 1\cf4 \cb1 \strokec4 \
+\cb3     \}\cb1 \
+\cb3   \}\cb1 \
+\cb3   \cf5 \strokec5 return\cf4 \strokec4  -\cf9 \strokec9 1\cf4 \strokec4 ;\cb1 \
+\cb3 \}\cb1 \
+}
